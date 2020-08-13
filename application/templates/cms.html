@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<div class="container-fluid" style="margin-top: 60px;">
+    <div class="row">
+        <div class="col-md-2" style="background-color: #1E3750;">
+            <ul style="list-style-type: none; height: 300px;">
+                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='manage_user')}}"
+                        style="text-decoration: none; color: white;"><span class="fa fa-users fa-lg"></span>Manage
+                        User/Staff</a></li>
+                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='manage_events')}}"
+                        style="text-decoration: none; color: white;"><span class="fa fa-calendar fa-lg"></span>
+                        Manage Events</a></li>
+                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='manage_prizes')}}"
+                        style="text-decoration: none; color: white;"><span class="fa fa-trophy fa-lg"></span>
+                        Prize/Accredation</a></li>
+                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='upload_blogs')}}"
+                        style="text-decoration: none; color: white;"><span class="fa fa-blog fa-lg"></span>
+                        Upload Blog</a></li>
+                <li style="margin-bottom: 15px;"><a href="{{url_for('view_blogs')}}"
+                        style="text-decoration: none; color: white;"><span class="fa fa-eye fa-lg"></span>
+                        View Blog</a></li>
+                <li style="margin-bottom: 15px;"><a href="{{url_for('logout')}}"
+                        style="text-decoration: none; color: white;"><span class="fa fa-log-out fa-lg"></span>
+                        Logout</a></li>
+
+            </ul>
+
+        </div>
+        <div class="col-md-10">
+            {% if send_action == 'manage_user'  %}
+            {% include 'cms/manage_user.html'%}
+            {% elif send_action == 'manage_events'%}
+            {% include 'cms/manage_events.html'%}
+            {% elif send_action == 'manage_prizes'%}
+            {% include 'cms/manage_prizes.html'%}
+            {% elif send_action == 'upload_blogs'%}
+            {% include 'cms/upload_blog.html'%}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

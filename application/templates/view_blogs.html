@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container" style="margin-top: 60px;">
+    <div class="row">
+        {% for blog in blogs.each() %}
+        <div class="col-md-4">
+            <div class="card shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h3 class="card-title">{{blog.val()['title']}}</h3>
+                    <p class="card-text">{{blog.val()['description']}}</p>
+
+                    <hr>
+                    <small>Author: {{blog.val()['blog_author']}}</small>
+                    <p>Last Updated: {{blog.val()['last_updated']}}</p>
+                </div>
+                <a href="{{url_for('view_details',key=blog.key())}}" style="text-decoration: none; color: white;">
+                    <button class="btn btn-primary">Details </button></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

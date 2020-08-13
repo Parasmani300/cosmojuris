@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container" style="margin-top: 60px;">
+    {% for b in blog %}
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+            <h3 class="card-title">{{b.val()['title']}}</h3>
+            <hr>
+            <small>By: {{b.val()['blog_author']}}</small>
+            <small>Date Posted: {{b.val()['last_updated']}}</small>
+            <hr>
+            <div id="entire_blog" class="card-text">{{b.val()['blog_data']|safe}}</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

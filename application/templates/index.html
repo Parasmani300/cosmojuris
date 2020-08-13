@@ -1,0 +1,96 @@
+{% extends 'base.html'%}
+
+{% block content%}
+{% include 'includes/carousel.html'%}
+<br>
+<div class="container">
+    <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+            <h5 class="card-title text-center">Why Cosmo Juris</h5>
+            <p class="card-body" id="cosmos_full_info">
+                {{data[:700]}}...
+            </p>
+            <button class="btn btn-primary" id="hide_details_info" style="visibility: hidden;">Hide Details</button>
+            <button class="btn btn-danger" style="margin-left: 33%;" id="cosmos_info" value="{{data}}">Read
+                More</button>
+        </div>
+    </div>
+
+    <!-- What's New -->
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">News Room</h3>
+                <hr>
+                <marquee direction="up" onmouseover="this.stop();" onmouseout="this.start();">
+                    {% if event_notice.val() %}
+                    {% for event in event_notice %}
+                    <p class="text-center">A {{event.val()['event_name']}} is sechudled on {{event.val()['event_date']}}
+                        at {{event.val()['event_time']}} registration starts from {{event.val()['event_reg_start']}} and
+                        end {{event.val()['event_reg_end']}}
+                    </p>
+                    {% endfor %}
+                    {% endif %}
+                </marquee>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certification and Student credits -->
+
+    <br>
+
+    <div>
+        <h2 class="text-center" style="font-weight: bold;">Recent Law Journals</h2>
+        <div class="row">
+            {% if blog_preview.val() %}
+            {% for blog in blog_preview.each() %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="{{url_for('static',filename='images/caro1.jpg')}}" alt="Description">
+                    <div class="card-body">
+                        <h3 class="card-title">{{blog.val()['title']}}</h3>
+                        <p class="card-text">{{blog.val()['description']}}</p>
+                        <hr>
+                        <small>Author: {{blog.val()['blog_author']}}</small>
+                        <p><small>Last Updated: {{blog.val()['last_updated']}}</small></p>
+                        <a href="{{url_for('view_details',key=blog.key())}}"
+                            style="text-decoration: none; color: white;">
+                            <button class="btn btn-primary">Details </button></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <a href="{{url_for('index',more=n+5)}}"><button class="btn btn-primary">View More</button></a>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>
+<br><br>
+
+<script>
+
+    document.getElementById("cosmos_info").addEventListener("click", () => {
+        const data = document.getElementById("cosmos_info").value;
+        document.getElementById("cosmos_full_info").innerHTML = data;
+        document.getElementById("hide_details_info").style.visibility = "visible"
+        document.getElementById("cosmos_info").style.visibility = "hidden"
+    })
+
+    document.getElementById("hide_details_info").addEventListener("click", () => {
+        const data = document.getElementById("cosmos_full_info").innerHTML;
+        const sub_data = data.substr(0, 650);
+        document.getElementById("cosmos_full_info").innerHTML = sub_data;
+        document.getElementById("hide_details_info").style.visibility = "hidden"
+        document.getElementById("cosmos_info").style.visibility = "visible"
+    })
+
+</script>
+{% endblock %}
