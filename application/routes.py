@@ -155,3 +155,7 @@ def convenors():
 @app.route('/advisory_board')
 def advisory_board():
     return render_template('advisory_board.html')
+
+@app.route('/techinical_board')
+def techinical_board():
+    return render_template('techinical_board.html')
