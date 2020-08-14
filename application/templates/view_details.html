@@ -9,7 +9,8 @@
             <small>By: {{b.val()['blog_author']}}</small>
             <small>Date Posted: {{b.val()['last_updated']}}</small>
             <hr>
-            <div id="entire_blog" class="card-text">{{b.val()['blog_data']|safe}}</div>
+            <div id="entire_blog" class="card-text" style="text-align: justify; text-justify: inter-word;">
+                {{b.val()['blog_data']|safe}}</div>
         </div>
     </div>
     {% endfor %}

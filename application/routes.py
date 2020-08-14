@@ -131,3 +131,27 @@ def view_details():
 def logout():
     session['usr'] = None
     return redirect('/')
+
+@app.route('/honary_board')
+def honary_board():
+    return render_template('honary_board.html')
+
+@app.route('/editorial_board')
+def editorial_board():
+    return render_template('editorial_board.html')
+
+@app.route('/core_members')
+def core_members():
+    return render_template('core_members.html')
+
+@app.route('/coordinators')
+def coordinators():
+    return render_template('coordinators.html')
+
+@app.route('/convenors')
+def convenors():
+    return render_template('convenors.html')
+
+@app.route('/advisory_board')
+def advisory_board():
+    return render_template('advisory_board.html')
