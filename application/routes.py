@@ -1,7 +1,8 @@
 import os
 from datetime import datetime
-from application import app,auth,db
+from application import app,auth,db,storage,UPLOAD_FOLDER
 from flask import Flask,request,render_template,url_for,session,redirect
+from werkzeug.utils import secure_filename
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 data_file = os.path.join(base_dir,'static/data.txt')
@@ -40,6 +41,39 @@ def cms():
     send_action = None
     if(request.args.get('action')):
         send_action = request.args.get('action')
+
+    if(request.form.get('submit_journal')):
+        if request.method == "POST":
+            journal = request.files['journal']
+            fname = secure_filename(journal.filename)
+            journal.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
+            upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+            upload_path = os.path.join(upload_path,'uploads')
+            upload_path = os.path.join(upload_path,fname)
+            try:
+                storage.child("pdf/"+ fname).put(upload_path)
+            except:
+                print("File Upload error")
+
+            pdf_url = storage.child("pdf/"+ fname).get_url(session['usr'])
+            author_name = request.form.get('author_name')
+            title = request.form.get('title')
+            description = request.form.get('description')
+            tags = request.form.get('tags')
+
+            add_pdf = {
+                'author':author_name,
+                'title':title,
+                'description':description,
+                'tags':tags,
+                'pdf_url':pdf_url
+            }
+            try:
+                db.child("Journal").push(add_pdf)
+                print('upload Successfull')
+            except:
+                print("Unable to upload")
+
 
     if(request.form.get('add_event')):
         event_name = request.form.get('event')
@@ -159,3 +193,12 @@ def advisory_board():
 @app.route('/techinical_board')
 def techinical_board():
     return render_template('techinical_board.html')
+
+@app.route('/view_journals')
+def view_journals():
+    journals = None
+    try:
+        journals = db.child("Journal").get()
+    except:
+        print("Error fetching details")
+    return render_template('view_journals.html',journals=journals)

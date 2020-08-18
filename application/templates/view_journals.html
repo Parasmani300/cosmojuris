@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="container" style="margin-top:60px;">
+    <h2>Issue 1</h2>
+    <hr>
+
+
+    {% if journals.val() %}
+    {% for journal in journals %}
+    <div class="card shadow p-3 mb-5 bg-primary rounded">
+        <div class="card-body">
+            <h3 class="card-title text-white">{{journal.val()['title']}}</h3>
+            <p><small class="text-white">{{journal.val()['author']}}</small></p>
+            <hr class="bg-white">
+            <p class="card-text text-white">{{journal.val()['description']}}</p>
+            <a href="{{journal.val()['pdf_url']}}" target="_blank" rel="noopener noreferrer"><button
+                    class="btn btn-danger">View Now</button></a>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
