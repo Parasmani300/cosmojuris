@@ -1,0 +1,18 @@
+<div class="container" style="margin-top: 60px;">
+    <h1 class="text-center">Messages</h1>
+    {% if feedbacks.val()%}
+    {% for feedback in feedbacks | reverse %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="cardtitle">{{feedback.val()['email']}}</h3>
+            <small>Posted on: {{feedback.val()['last_updated']}}</small>
+            <h5>{{feedback.val()['subject']}}</h5>
+            <p>{{feedback.val()['message']}}</p>
+            <a href="{{url_for('cms',action='view_feedback',delete_key=feedback.key())}}"><button
+                    class="btn btn-primary">Delete</button></a>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+    {% endif %}
+</div>

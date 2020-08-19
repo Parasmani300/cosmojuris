@@ -23,6 +23,23 @@ def index():
         blog_preview = db.child("blogs").order_by_key().limit_to_last(n).get()
     except:
         print("Error fetching events")
+
+    if(request.form.get('feedback')):
+        if request.method == "POST":
+            email = request.form.get('email')
+            subject = request.form.get('subject')
+            message = request.form.get('message')
+
+            feeback_data = {
+                'email':email,
+                'subject':subject,
+                'message':message,
+                'last_updated':str(datetime.now())
+            }
+            try:
+                db.child("feedback").push(feeback_data)
+            except:
+                print("unable to push feedback")
         
     return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n)
 
@@ -123,8 +140,24 @@ def cms():
     except:
         print("Error fetching events")
 
+    feedbacks = None
+    if(request.args.get('action') == 'view_feedback'):
+        try:
+            feedbacks = db.child("feedback").order_by_key().get()
+        except:
+            print("Unable to fetch feedback")
+
+        # Delete message
+        try:
+            if(request.args.get('delete_key')):
+                delete_key = request.args.get('delete_key')
+                db.child("feedback").child(delete_key).remove()
+                return redirect(url_for('cms',action='view_feedback'))
+        except:
+            print("Some error occured")
+
     
-    return render_template("cms.html",send_action=send_action,events=events)
+    return render_template("cms.html",send_action=send_action,events=events,feedbacks=feedbacks)
 
 @app.route('/cms_login',methods=['GET','POST'])
 def cms_login():

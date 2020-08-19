@@ -4,7 +4,7 @@
 <div class="container-fluid" style="margin-top: 60px;">
         <div class="row">
                 <div class="col-md-2" style="background-color: #1E3750;">
-                        <ul style="list-style-type: none; height: 300px;">
+                        <ul style="list-style-type: none;">
                                 <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='manage_user')}}"
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-users fa-lg"></span>Manage
@@ -33,6 +33,10 @@
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-eye fa-lg"></span>
                                                 View Journals</a></li>
+                                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='view_feedback')}}"
+                                                style="text-decoration: none; color: white;"><span
+                                                        class="fa fa-comments fa-lg"></span>
+                                                View Feedbacks</a></li>
                                 <li style="margin-bottom: 15px;"><a href="{{url_for('logout')}}"
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-log-out fa-lg"></span>
@@ -52,6 +56,8 @@
                         {% include 'cms/upload_blog.html'%}
                         {% elif send_action == 'upload_journal'%}
                         {% include 'cms/upload_journal.html'%}
+                        {% elif send_action == 'view_feedback'%}
+                        {% include 'cms/view_feedback.html'%}
                         {% endif %}
                 </div>
         </div>
