@@ -98,6 +98,7 @@ def cms():
         event_time = request.form.get('timing')
         event_reg_start = request.form.get('reg_start')
         event_reg_end = request.form.get('reg_end')
+        event_url = request.form.get('event_url')
 
         event_data = {
             'event_name':event_name,
@@ -105,6 +106,7 @@ def cms():
             'event_time':event_time,
             'event_reg_start':event_reg_start,
             'event_reg_end':event_reg_end,
+            'event_url':event_url,
             'last_updated':str(datetime.now())
         }
         try:

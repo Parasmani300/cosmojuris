@@ -9,6 +9,7 @@
                     <select name="event" required>
                         <option value="None">None Selected</option>
                         <option value="Webinar">Webinar</option>
+                        <option value="Quiz">Quiz</option>
                         <option value="Seminar">Semianr</option>
                         <option value="Debate">Debate</option>
                         <option value="Article Writing">Article Writing</option>
@@ -37,6 +38,11 @@
                     <label for="reg_end">Registration End</label>
                     <input type="date" name="reg_end" required>
                 </div>
+                <div class="from-group">
+                    <label for="event_url">Google Form URL</label>
+                    <input type="text" name="event_url" class="form-control" required>
+                </div>
+                <br>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" name="add_event" value="Add Event">
                 </div>
