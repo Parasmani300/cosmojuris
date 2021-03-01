@@ -4,29 +4,21 @@
     <h1 class="display-4">Technical Board</h1>
     <br>
     <div class="row">
-        <div class="col-md-4">
+        
+            {% if members %}
+            {% for member in members.each() %}
+            <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/sunny.png?alt=media&token=f88ba7ff-cd76-439e-82ad-714771edcf16"
-                    alt="Card image cap" style="height: 220px;">
+                <img class="card-img-top" src="{{member.val()['member_avatar']}}" alt="Card image cap" style="height: 250;">
                 <div class="card-body">
-                    <h5 class="card-title">Sunny Kr. Jaiswal</h5>
-                    <p class="card-text">B.Tech(CSE) - Darbhanga College of Engineering</p>
+                    <h5 class="card-title">{{member.val()['member_name']}}</h5>
+                    <p class="card-text">{{member.val()['member_position']}}</p>
+                    <p class="card-text">{{member.val()['member_qualifications']}}</p>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/sintoo.jpg?alt=media&token=58bf2fb4-465a-439b-9917-838573ab5875"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Ashutosh Anand</h5>
-                    <p class="card-text">B.Tech(EEE) - INJPIT,Chapra</p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
+        {% endif %}
     </div>
     <br>
 </div>

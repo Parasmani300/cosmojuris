@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    {% for member in members_to_send.each() %}
+    <br />
+    <h3>{{member.key()}}</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Qualification</th>
+                <th scope="col">Position</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in member.val() %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{member.val()[m]['member_name']}}</td>
+                <td>{{member.val()[m]['member_qualifications']}}</td></td>
+                <td>{{member.val()[m]['member_position']}}</td></td>
+                <td><a href="{{url_for('cms',action='edit_member',member_id=m,team=member.key())}}">Edit</a></td>
+                <td><a href="{{url_for('cms',action='delete_member',member_id=m,team=member.key())}}">Delete</a></td>
+              </tr>
+              {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>

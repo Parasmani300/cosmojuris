@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from application import app,auth,db,storage,UPLOAD_FOLDER
-from flask import Flask,request,render_template,url_for,session,redirect
+from flask import Flask,request,render_template,url_for,session,redirect,flash
 from werkzeug.utils import secure_filename
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -40,6 +40,7 @@ def index():
                 db.child("feedback").push(feeback_data)
             except:
                 print("unable to push feedback")
+    
         
     return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n)
 
@@ -157,9 +158,60 @@ def cms():
                 return redirect(url_for('cms',action='view_feedback'))
         except:
             print("Some error occured")
+    #Add memeber to the team
+    if request.form.get('submit_member'):
+        member_name = request.form.get('member_name')
+        member_position = request.form.get('member_position')
+        member_qualifications = request.form.get('member_qualifications')
+        member_team = request.form.get('member_team')
+        member_avatar = request.files['member_avatar']
+        fname = secure_filename(member_avatar.filename)
+        member_avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
+        upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+        upload_path = os.path.join(upload_path,'uploads')
+        upload_path = os.path.join(upload_path,fname)
 
+        try:
+            storage.child("member_image/"+ fname).put(upload_path)
+        except:
+            print("File Upload error")
+        
+        member_url = storage.child("member_image/"+ fname).get_url(session['usr'])
+        add_member = {
+            'member_name':member_name,
+            'member_position':member_position,
+            'member_qualifications':member_qualifications,
+            'member_team':member_team,
+            'member_avatar':member_url
+        }
+        try:
+            db.child("members").child(member_team).push(add_member)
+        except:
+            print("Unable to upload memeber try agin later")
+
+    members_to_send = None
+    li = []
+    if send_action == 'edit_or_delete':
+        try:
+            members_to_send = db.child("members").get()
+        except:
+            print("Member not passed, error here")
     
-    return render_template("cms.html",send_action=send_action,events=events,feedbacks=feedbacks)
+    if send_action == 'delete_member':
+        id_member = request.args.get('member_id')
+        team = request.args.get('team')
+        db.child('members').child(team).child(id_member).remove()
+        return redirect(url_for('cms',action='edit_or_delete'))
+    
+    if send_action == 'edit_member':
+        id_member = request.args.get('member_id')
+        team = request.args.get('team')
+        data = db.child('members').child(team).child(id_member).get()
+        member_data = {}
+        for d in data.each():
+            member_data[d.key()] = d.value()
+        # return redirect()
+    return render_template("cms.html",send_action=send_action,events=events,feedbacks=feedbacks,members_to_send=members_to_send)
 
 @app.route('/cms_login',methods=['GET','POST'])
 def cms_login():
@@ -203,31 +255,159 @@ def logout():
 
 @app.route('/honary_board')
 def honary_board():
-    return render_template('honary_board.html')
+    members = None
+    try:
+        members = db.child("members").child("Honary Board").get()
+        # for member in members.each():
+        #     member_avatar = member.val()['member_avatar']
+        #     member_name = member.val()['member_name']
+        #     member_position = member.val()['member_position']
+        #     member_qualifications = member.val()['member_qualifications']
+        #     member_team = member.val()['member_team']
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        for member in members.each():
+            if member:
+                break
+    except:
+        members = []
+
+    return render_template('honary_board.html',members=members)
 
 @app.route('/editorial_board')
 def editorial_board():
-    return render_template('editorial_board.html')
+    members = None
+    try:
+        members = db.child("members").child("Editorial").get()
+        # for member in members.each():
+        #     member_avatar = member.val()['member_avatar']
+        #     member_name = member.val()['member_name']
+        #     member_position = member.val()['member_position']
+        #     member_qualifications = member.val()['member_qualifications']
+        #     member_team = member.val()['member_team']
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        for member in members.each():
+            if member:
+                break
+    except:
+        members = []
+    return render_template('editorial_board.html',members=members)
 
 @app.route('/core_members')
 def core_members():
-    return render_template('core_members.html')
+    members = None
+    try:
+        members = db.child("members").child("Core Members").get()
+        # for member in members.each():
+        #     member_avatar = member.val()['member_avatar']
+        #     member_name = member.val()['member_name']
+        #     member_position = member.val()['member_position']
+        #     member_qualifications = member.val()['member_qualifications']
+        #     member_team = member.val()['member_team']
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        for member in members.each():
+            if member:
+                break
+    except:
+        members = []
+    return render_template('core_members.html',members=members)
 
 @app.route('/coordinators')
 def coordinators():
-    return render_template('coordinators.html')
+    members = None
+    try:
+        members = db.child("members").child("Coordinators").get()
+        # for member in members.each():
+        #     member_avatar = member.val()['member_avatar']
+        #     member_name = member.val()['member_name']
+        #     member_position = member.val()['member_position']
+        #     member_qualifications = member.val()['member_qualifications']
+        #     member_team = member.val()['member_team']
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        for member in members.each():
+            if member:
+                break
+    except:
+        members = []
+
+    return render_template('coordinators.html',members=members)
 
 @app.route('/convenors')
 def convenors():
-    return render_template('convenors.html')
+    members = None
+    try:
+        members = db.child("members").child("Convenors").get()
+        # for member in members.each():
+        #     member_avatar = member.val()['member_avatar']
+        #     member_name = member.val()['member_name']
+        #     member_position = member.val()['member_position']
+        #     member_qualifications = member.val()['member_qualifications']
+        #     member_team = member.val()['member_team']
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        for member in members.each():
+            if member:
+                break
+    except:
+        members = []
+    return render_template('convenors.html',members=members)
 
 @app.route('/advisory_board')
 def advisory_board():
-    return render_template('advisory_board.html')
+    members = None
+    try:
+        members = db.child("members").child("Advisiory Board").get()
+        # for member in members.each():
+        #     member_avatar = member.val()['member_avatar']
+        #     member_name = member.val()['member_name']
+        #     member_position = member.val()['member_position']
+        #     member_qualifications = member.val()['member_qualifications']
+        #     member_team = member.val()['member_team']
+    except:
+        print("Error occured fetching Honary Board")
+    
+    try:
+        for member in members.each():
+            if member:
+                break
+    except:
+        members = []
+    return render_template('advisory_board.html',members=members)
 
 @app.route('/techinical_board')
 def techinical_board():
-    return render_template('techinical_board.html')
+    members = None
+    try:
+        members = db.child("members").child("Techinical Board").get()
+        # for member in members.each():
+        #     member_avatar = member.val()['member_avatar']
+        #     member_name = member.val()['member_name']
+        #     member_position = member.val()['member_position']
+        #     member_qualifications = member.val()['member_qualifications']
+        #     member_team = member.val()['member_team']
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        for member in members.each():
+            if member:
+                break
+    except:
+        members = []
+    return render_template('techinical_board.html',members=members)
 
 @app.route('/view_journals')
 def view_journals():

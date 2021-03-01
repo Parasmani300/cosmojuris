@@ -18,264 +18,32 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4"></div>
     </div>
 
-    <h2 class="card-text">Senior Editor</h2>
+    <h2 class="card-text"> Editor </h2>
     <hr>
     <div class="row">
-
-        <!-- <div class="col-md-4">
+        
+            {% if members %}
+            {% for member in members.each() %}
+            <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/sefalisingh.png?alt=media&token=d37a07d3-4c9d-4cac-9b29-c7df818f507a"
-                    alt="Card image cap" style="height: 220px;">
+                <img class="card-img-top" src="{{member.val()['member_avatar']}}" alt="Card image cap" style="height: 250;">
                 <div class="card-body">
-                    <h5 class="card-title">Ms. Shefali Singh</h5>
-                    <p class="card-text">Senior Editor</p>
-                    <p>UGC NET(Qualified)</p>
-                    <p>Work Experience - Gujarat National Law University(Teaching and Research Associate, Law)</p>
-                    <p>Ph.D - Panjab University</p>
-                    <p>LLM(Corporate Law) - Hidayatullah National Law University, Raipur</p>
+                    <h5 class="card-title">{{member.val()['member_name']}}</h5>
+                    <p class="card-text">{{member.val()['member_position']}}</p>
+                    <p class="card-text">{{member.val()['member_qualifications']}}</p>
                 </div>
             </div>
-            <br>
-        </div> -->
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/triptibhushan.jpg?alt=media&token=fbbe1dae-386e-46db-b640-4e337cc5c348"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Ms. Tripti Bhushan</h5>
-                    <p class="card-text">Senior Editor</p>
-                    <!-- <p>UGC NET(Qualified)</p> -->
-                    <p>Assistant professor, Law - Kalinga University(Raipur)</p>
-                    <p>LLM(Intellectual Property Right) -Hidayatullah National Law University,Raipur</p>
-                    <p>B.A LLB - Amity Law School, Lucknow</p>
-                    <p>Recipient of "Emerging Scientist Award in Law" 2020</p>
-                    <p>Cleared All India Bar Exam(AIBE)</p>
-                </div>
-            </div>
-            <br>
         </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Manish%20Ranjan%2C%20Advocate%20Delhi%20High%20Court%2C%20National%20University%20of%20Study%20and%20Research%20in%20Law.jfif?alt=media&token=ed8ecafb-6f32-4bbf-a94f-4e1348306d78"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Manish Ranjan</h5>
-                    <p class="card-text">Senior Editor</p>
-                    <p>Advocate - Delhi High Court, National University of Study and
-                        Research in Law, Ranchi
-                    </p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-
-        <!-- <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/mvasudha.png?alt=media&token=e2acc4de-25ed-4875-a85e-9c8a019108e9"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Ms. Vasudha Singh</h5>
-                    <p class="card-text">Senior Editor</p>
-                    <p>UGC NET(Qualified)</p>
-                    <p>LLM(Criminal Law) - HPNLU, Shimla</p>
-                    <p>B.A LLB - Panjab University</p>
-                </div>
-            </div>
-            <br>
-        </div> -->
-
-
+        {% endfor %}
+        {% endif %}
     </div>
 
     <!-- Students Editor section -->
-    <h2 class="card-text">Student Editor</h2>
+    <!-- <h2 class="card-text">Student Editor</h2>
     <hr>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Raja%20Reeshav(5th%20year)%20%2C%20National%20Law%20University%2C%20%20jodhpur-%20Student%20editor.jfif?alt=media&token=79910ce6-1b35-4857-a173-b2b20359cf12"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Raja Reeshav</h5>
-                    <p class="card-text">Student Editor, National Law University Jodhpur</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Saurabh%20Singh%20%2C%203rd%20year%2C%20Chanakya%20national%20law%20unibersity%2C%20patna-%20STUDENT%20EDITOR.jfif?alt=media&token=a8174b2e-33ce-4530-9608-05d0396a8ec5"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Saurabh Singh</h5>
-                    <p class="card-text">Student Editor,Chanakya National Law University, Patna</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/aanasharma.jpg?alt=media&token=f8f8fdc0-d8fd-4e85-b37e-10feb8d90bd7"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Aana Sharma</h5>
-                    <p class="card-text">Student Editor, Himachal Pradesh National Law University, Shimla</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/tejpratap.png?alt=media&token=3348723e-9c1d-4ae5-85d6-2724f7e61875"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Tej Pratap Singh</h5>
-                    <p class="card-text">Student Editor,Dr. Ram Manohar Lohiya, National Law University, Lucknow</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Vikash%20Bishnoi%2C%20Student%20Editor%2C%20Rajiv%20Gandhi%20National%20University%20of%20Law.jfif?alt=media&token=8b825691-3ef4-4b3c-8f28-b26aadb49346"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Vikash Bishnoi</h5>
-                    <p class="card-text">Student Editor,Rajiv Gandhi National University of Law</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Ketan%20Priyadarshee%20(%202nd%20year)%20%2C%20Maharashtra%20national%20law%20university%2Caurangabad%2C-%20STUDENT%20EDITOR.jfif?alt=media&token=e5081e79-c639-40c7-b33f-377d157a1f76"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Ketan Priyadarshee</h5>
-                    <p class="card-text">Student Editor, Maharastra National Law University</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/satyasatrakshi.png?alt=media&token=925b30dd-0865-4156-8994-aeffe6416aa4"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Satya Shatakshi</h5>
-                    <p class="card-text">Ranchi University</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Pranav%20Gandhi%2C%20Student%20Editor%2C%20National%20Law%20University%20and%20Judicial%20Academy%2C%20Assam.jfif?alt=media&token=121df2ca-a3ae-4375-a32a-6fb95df1f941"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Pranav Gandhi</h5>
-                    <p class="card-text">National Law University and Judicial Academy, Assam</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-
-
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Rishi%20Raj(%202nd%20year)%2C%20Maharashtra%20national%20law%20university%2C%20aurangabad%20-%20%20STUDENT%20EDITOR.jfif?alt=media&token=90091af2-6ca1-4ab0-aac7-859e520d477c"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Rishi Raj</h5>
-                    <p class="card-text">Student Editor,Maharastra National Law University </p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Shreiya%20Katoch%2C%20Student%20Editor%2C%20Himachal%20Pradesh%20National%20Law%20University%2C%20Shimla.jpg?alt=media&token=5d5295ff-8493-49c7-9076-2885ff2fa742"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Shreiya Katoch</h5>
-                    <p class="card-text">Student Editor,Himachal Pradesh National Law University, Shimla</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Rohan%20Gupta%2C%20Student%20editor%2C%20Symbiosis%20Law%20School%2C%20Nagpur_.jfif?alt=media&token=b6a475ed-e873-403d-8000-7ebdc0353513"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Rohan Gupta</h5>
-                    <p class="card-text">Student Editor,Symbiosis Law School, Nagpur</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Antra%20Raj%2C%20Student%20Editor%2C%20Presidency%20university%2CBangalore.jfif?alt=media&token=9da291a9-96bb-40b7-9cc7-9ace8b2d72b9"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Antra Raj</h5>
-                    <p class="card-text">Student Editor, Presidency College</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Rahul%20Bhushan%2C%20Student%20Editor%2C%20Himachal%20Pradesh%20National%20law%20University%2C%20Shimla.jfif?alt=media&token=ed4a85f7-a798-43ba-9d33-058eb7601961"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Rahul Bhushan</h5>
-                    <p class="card-text">Student Editor, HPNLU Shimla</p>
-                </div>
-            </div>
-            <br>
-        </div>
-
+    <div class="row"> -->
 
     </div>
     <br>

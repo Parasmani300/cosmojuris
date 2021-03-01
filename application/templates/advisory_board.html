@@ -4,60 +4,21 @@
     <h1 class="display-4">Advisory Board</h1>
     <hr>
     <div class="row">
-        <div class="col-md-4">
+            {% if members %}
+            {% for member in members.each() %}
+            <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/pallavipandey.jpg?alt=media&token=7c47104b-219f-458a-9847-c39c46ef4aae"
-                    alt="Card image cap" style="height: 220px;">
+                <img class="card-img-top" src="{{member.val()['member_avatar']}}" alt="Card image cap" style="height: 250;">
                 <div class="card-body">
-                    <h5 class="card-title">Ms. Pallavi Pandey</h5>
-                    <p class="card-text">B.A LL.B, LLM</p>
-                    <p class="card-text">Advocate on Record, Patna High Court</p>
+                    <h5 class="card-title">{{member.val()['member_name']}}</h5>
+                    <p class="card-text">{{member.val()['member_position']}}</p>
+                    <p class="card-text">{{member.val()['member_qualifications']}}</p>
                 </div>
             </div>
-            <br>
         </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/madanmohan.jpg?alt=media&token=64269e27-208c-4d32-b323-4094bd9c8dde"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Mr. Madan Mohan</h5>
-                    <p class="card-text">B.A LL.B</p>
-                    <p class="card-text">Advocate on Record, Patna High Court</p>
-                </div>
-            </div>
-            <br>
-        </div>
-        <!-- <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/Vaishali%20Singh%2C%20Vaishali%20Singh%2C%20Ph.D%20Reserach%20Scholar%20(HPNLU)%2C%20Advisory%20board.jfif?alt=media&token=69752c78-9942-4c97-907c-80673e64a389"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Vaishali Singh</h5>
-                    <p class="card-text">Phd. Research Scholar (HPNLU)</p>
-                    <p>LLM(Constitution Law) - HPNLU, Shimla</p>
-                    <p>B.L.S LLB - Goverment Law College, Mumbai</p>
-                </div>
-            </div>
-            <br>
-        </div> -->
-
-        <!-- <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="https://firebasestorage.googleapis.com/v0/b/cosmo-juris.appspot.com/o/vaibhaw.jpg?alt=media&token=8c5f32f9-859f-4b5a-9323-c43edd92eaff"
-                    alt="Card image cap" style="height: 220px;">
-                <div class="card-body">
-                    <h5 class="card-title">Mr. Vaibhav Prakash</h5>
-                    <p class="card-text">Alumnus,National University of Study and
-                        Research in Law, Ranchi </p>
-                </div>
-            </div>
-            <br>
-        </div> -->
+        {% endfor %}
+        {% endif %}
+        
     </div>
     <br>
 </div>

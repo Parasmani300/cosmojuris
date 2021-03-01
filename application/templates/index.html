@@ -18,15 +18,15 @@
 
     <!-- What's New -->
     <div class="container">
-        <div class="card">
+        <div class="card" style="background-color: #0F1E40;">
             <div class="card-body">
-                <h3 class="card-title text-center">News Room</h3>
+                <h3 class="card-title text-center text-white">News Room</h3>
                 <hr>
                 <marquee direction="up" onmouseover="this.stop();" onmouseout="this.start();">
                     {% if event_notice.val() %}
                     {% for event in event_notice %}
                     <a href="{{event.val()['event_url']}}" target="_blank">
-                        <p class="text-center" style="text-align: justify; text-justify: inter-word;">A
+                        <p class="text-center text-white" style="text-align: justify; text-justify: inter-word;">A
                             {{event.val()['event_name']}} is sechudled on {{event.val()['event_date']}}
                             at {{event.val()['event_time']}} registration starts from {{event.val()['event_reg_start']}}
                             and
@@ -43,11 +43,11 @@
     <br>
     <div class="row">
         <div class="col-md-4">
-            <div class="card">
+            <div class="card" style="background-color: #0F1E40; height: 250px;" >
                 <div class="card-body">
-                    <h3 class="card-title">Our Guide Lines</h3>
+                    <h3 class="card-title text-white">Our Guide Lines</h3>
                     <a href="#">
-                        <p>Please check our guidelines here, before proceeding</p>
+                        <p class="text-white">Please check our guidelines here, before proceeding</p>
                     </a>
                 </div>
             </div>
@@ -55,22 +55,46 @@
         </div>
 
         <div class="col-md-4">
-            <div class="card">
+            <div class="card" style="background-color: #0F1E40; height: 250px;" >
                 <div class="card-body">
-                    <h3 class="card-title">Submit Your Work</h3>
-                    <p class="card-text">Hey there, Csomo Juris Invites you all to publish your research work</p>
+                    <h3 class="card-title text-white">Blogs</h3>
+                    <a href="#">
+                        <p class="text-white">Check out the blogs here</p>
+                    </a>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card" style="background-color: #0F1E40; height: 250px;" >
+                <div class="card-body">
+                    <h3 class="card-title text-white">Research Paper</h3>
+                    <a href="#">
+                        <p class="text-white">Check out the research papers here</p>
+                    </a>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card" style="background-color: #0F1E40; height: 250px;" >
+                <div class="card-body">
+                    <h3 class="card-title text-white">Submit Your Work</h3>
+                    <p class="card-text text-white">Hey there, Csomo Juris Invites you all to publish your research work</p>
                     <a href="#"><button class=" justify-center btn btn-primary">Submit Now</button></a>
                 </div>
             </div>
             <br>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card" style="background-color: #0F1E40; height: 250px;" >
                 <div class="card-body">
-                    <h3 class="card-title">Having Issues submitting??</h3>
-                    <p class="card-text">Either write down your issues to our help desk</p>
-                    <p>or</p>
-                    <p>Email us at: <a class="text-primary" href="mailto:cosmojuris@gmail.com"
+                    <h3 class="card-title text-white">Having Issues submitting??</h3>
+                    <p class="card-text text-white">Either write down your issues to our help desk</p>
+                    <p class="text-white">or</p>
+                    <p class="text-white">Email us at: <a class="text-primary text-white" href="mailto:cosmojuris@gmail.com"
                             style="text-decoration: none;">cosmojuris@gmail.com</a></p>
                 </div>
             </div>

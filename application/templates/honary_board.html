@@ -3,16 +3,20 @@
 <div class="container" style="margin-top: 80px;">
     <h1 class="display-4">Honary Board</h1>
     <div class="row">
-        <div class="col-md-4">
+            {% if members %}
+            {% for member in members.each() %}
+            <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{url_for('static',filename='images/abc.png')}}" alt="Card image cap">
+                <img class="card-img-top" src="{{member.val()['member_avatar']}}" alt="Card image cap" style="height: 250;">
                 <div class="card-body">
-                    <h5 class="card-title">Author Name</h5>
-                    <p class="card-text">Description
-                        content.</p>
+                    <h5 class="card-title">{{member.val()['member_name']}}</h5>
+                    <p class="card-text">{{member.val()['member_position']}}</p>
+                    <p class="card-text">{{member.val()['member_qualifications']}}</p>
                 </div>
             </div>
         </div>
+        {% endfor %}
+        {% endif %}
     </div>
     <br>
 </div>
