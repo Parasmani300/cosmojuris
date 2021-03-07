@@ -7,7 +7,7 @@
 
     {% if journals.val() %}
     {% for journal in journals | reverse %}
-    <div class="card shadow p-3 mb-5 bg-primary rounded">
+    <div class="card shadow p-3 mb-5 rounded" style="background-color: #0F1E40;">
         <div class="card-body">
             <h3 class="card-title text-white">{{journal.val()['title']}}</h3>
             <p><small class="text-white">{{journal.val()['author']}}</small></p>

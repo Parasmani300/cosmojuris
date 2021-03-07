@@ -1,7 +1,6 @@
 <div class="container-fluid">
-    {% for member in members_to_send.each() %}
+    {% for member in editors_to_send.each() %}
     <br />
-    {% if member.key()|string() != "Editorial" %}
     <h3>{{member.key()}}</h3>
     <table class="table table-striped">
         <thead>
@@ -22,11 +21,10 @@
                 <td>{{member.val()[m]['member_qualifications']}}</td></td>
                 <td>{{member.val()[m]['member_position']}}</td></td>
                 <td><a href="{{url_for('cms',action='edit_member',member_id=m,team=member.key())}}">Edit</a></td>
-                <td><a href="{{url_for('cms',action='delete_member',member_id=m,team=member.key())}}">Delete</a></td>
+                <td><a href="{{url_for('cms',action='delete_editor',member_id=m,team=member.key())}}">Delete</a></td>
               </tr>
               {% endfor %}
         </tbody>
     </table>
-    {% endif %}
     {% endfor %}
 </div>

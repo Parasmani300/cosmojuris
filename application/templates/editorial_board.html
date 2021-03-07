@@ -4,28 +4,52 @@
     <h1 class="display-4">Editorial Board</h1>
     <hr>
 
-    <h2 class="card-text">Editor In Chief</h2>
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="#" alt="Card image cap" style="height: 220px;">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <h2 class="card-text"> Editor </h2>
+    <h2 class="card-text"> Editor in Chief </h2>
     <hr>
     <div class="row">
         
-            {% if members %}
-            {% for member in members.each() %}
+            {% if editor_in_chief %}
+            {% for member in editor_in_chief.each() %}
+            <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{member.val()['member_avatar']}}" alt="Card image cap" style="height: 250;">
+                <div class="card-body">
+                    <h5 class="card-title">{{member.val()['member_name']}}</h5>
+                    <p class="card-text">{{member.val()['member_position']}}</p>
+                    <p class="card-text">{{member.val()['member_qualifications']}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <h2 class="card-text"> Senior Editor </h2>
+    <hr>
+    <div class="row">
+        
+            {% if senior_editor %}
+            {% for member in senior_editor.each() %}
+            <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{member.val()['member_avatar']}}" alt="Card image cap" style="height: 250;">
+                <div class="card-body">
+                    <h5 class="card-title">{{member.val()['member_name']}}</h5>
+                    <p class="card-text">{{member.val()['member_position']}}</p>
+                    <p class="card-text">{{member.val()['member_qualifications']}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <h2 class="card-text"> Student Editor </h2>
+    <hr>
+    <div class="row">
+        
+            {% if student_editor %}
+            {% for member in senior_editor.each() %}
             <div class="col-md-4">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="{{member.val()['member_avatar']}}" alt="Card image cap" style="height: 250;">

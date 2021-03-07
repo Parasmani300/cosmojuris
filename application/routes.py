@@ -185,6 +185,9 @@ def cms():
             'member_avatar':member_url
         }
         try:
+            if(add_member['member_team'] == 'Editorial' and request.form.get('member_post')):
+                m_post = request.form.get('member_post')
+                db.child("members").child(member_team).child(m_post).push(add_member)  
             db.child("members").child(member_team).push(add_member)
         except:
             print("Unable to upload memeber try agin later")
@@ -202,16 +205,27 @@ def cms():
         team = request.args.get('team')
         db.child('members').child(team).child(id_member).remove()
         return redirect(url_for('cms',action='edit_or_delete'))
-    
-    if send_action == 'edit_member':
+
+    if send_action == 'delete_editor':
         id_member = request.args.get('member_id')
         team = request.args.get('team')
-        data = db.child('members').child(team).child(id_member).get()
-        member_data = {}
-        for d in data.each():
-            member_data[d.key()] = d.value()
-        # return redirect()
-    return render_template("cms.html",send_action=send_action,events=events,feedbacks=feedbacks,members_to_send=members_to_send)
+        db.child('members').child("Editorial").child(team).child(id_member).remove()
+    
+    # if send_action == 'edit_member':
+    #     id_member = request.args.get('member_id')
+    #     team = request.args.get('team')
+    #     data = db.child('members').child(team).child(id_member).get()
+    #     member_data = {}
+    #     for d in data.each():
+    #         member_data[d.key()] = d.val()
+    #     return render_template('./cms/manage_user.html')
+    editors_to_send = None
+    try:
+        editors_to_send = db.child("members").child("Editorial").get()
+    except:
+        editors_to_send = []
+    
+    return render_template("cms.html",send_action=send_action,events=events,feedbacks=feedbacks,members_to_send=members_to_send,editors_to_send=editors_to_send)
 
 @app.route('/cms_login',methods=['GET','POST'])
 def cms_login():
@@ -279,24 +293,54 @@ def honary_board():
 @app.route('/editorial_board')
 def editorial_board():
     members = None
+    senior_editor = None
+    student_editor = None
+    editor_in_chief = None
+
     try:
-        members = db.child("members").child("Editorial").get()
-        # for member in members.each():
-        #     member_avatar = member.val()['member_avatar']
-        #     member_name = member.val()['member_name']
-        #     member_position = member.val()['member_position']
-        #     member_qualifications = member.val()['member_qualifications']
-        #     member_team = member.val()['member_team']
+        senior_editor = db.child("members").child("Editorial").child("Senior Editor").get()
     except:
         print("Error occured fetching Honary Board")
 
     try:
-        for member in members.each():
+        student_editor = db.child("members").child("Editorial").child("Student Editor").get()
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        editor_in_chief = db.child("members").child("Editorial").child("Editor in Chief").get()
+    except:
+        print("Error occured fetching Honary Board")
+
+    try:
+        for member in senior_editor.each():
             if member:
                 break
     except:
-        members = []
-    return render_template('editorial_board.html',members=members)
+        senior_editor = []
+
+    try:
+        for member in senior_editor.each():
+            if member:
+                break
+    except:
+        senior_editor = []
+
+    try:
+        for member in student_editor.each():
+            if member:
+                break
+    except:
+        student_editor = []
+
+    try:
+        for member in editor_in_chief.each():
+            if member:
+                break
+    except:
+        editor_in_chief = []
+    
+    return render_template('editorial_board.html',senior_editor=senior_editor,student_editor=student_editor,editor_in_chief=editor_in_chief)
 
 @app.route('/core_members')
 def core_members():

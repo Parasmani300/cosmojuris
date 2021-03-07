@@ -13,6 +13,10 @@
                                         style="text-decoration: none; color: white;"><span
                                                 class="fa fa-users fa-lg"></span>
                                         Edit/ Delete Member</a></li>
+                                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='delete_editor')}}"
+                                        style="text-decoration: none; color: white;"><span
+                                                class="fa fa-users fa-lg"></span>
+                                        Edit Editor</a></li>
                                 <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='manage_events')}}"
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-calendar fa-lg"></span>
@@ -64,6 +68,8 @@
                         {% include 'cms/view_feedback.html'%}
                         {% elif send_action == 'edit_or_delete'%}
                         {% include 'cms/edit_delete_member.html'%}
+                        {% elif send_action == 'delete_editor'%}
+                        {% include 'cms/delete_editor.html'%}
                         {% endif %}
                 </div>
         </div>
