@@ -120,12 +120,27 @@ def cms():
         blog_author = request.form.get('author_name')
         title = request.form.get('title')
         description = request.form.get('description')
+
+        blogs = request.files['associated_image']
+        fname = secure_filename(blogs.filename)
+        blogs.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
+        upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+        upload_path = os.path.join(upload_path,'uploads')
+        upload_path = os.path.join(upload_path,fname)
+        try:
+            storage.child("blog/"+ fname).put(upload_path)
+        except:
+            print("File Upload error")
+
+        blog_url = storage.child("blog/"+ fname).get_url(session['usr'])
+        
         upload_blog = {
             'blog_data':blog_data,
             'blog_author':blog_author,
             'title': title,
             'description': description,
-            'last_updated': str(datetime.now())
+            'last_updated': str(datetime.now()),
+            'blog_url' : blog_url
         }
         try:
             db.child("blogs").push(upload_blog)
@@ -461,3 +476,38 @@ def view_journals():
     except:
         print("Error fetching details")
     return render_template('view_journals.html',journals=journals)
+
+@app.route('/blogs')
+def blogs():
+    blogs = None
+    try:
+        blogs = db.child("blogs").get()
+    except:
+        print("Could not fetch blog")
+
+    try:
+        for blog in blogs.each():
+            if blog:
+                break
+    except:
+        blogs = []
+    
+    return render_template('blogs.html',blogs=blogs)
+
+@app.route('/blog_details')
+def blog_details():
+    key = request.args.get('key')
+    data = None
+    try:
+        data = db.child("blogs").child(key).get()
+    except:
+        print("Could not fetch")
+    
+    try:
+        for d in data.each():
+            if d:
+                break
+    except:
+        data = []
+    # d1 = dict(data)
+    return render_template('blog_detail.html',data = data)
