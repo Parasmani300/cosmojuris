@@ -40,6 +40,20 @@ def index():
                 db.child("feedback").push(feeback_data)
             except:
                 print("unable to push feedback")
+
+    try:
+        for event in event_notice.val():
+            if(event):
+                break
+    except:
+        event_notice = []
+
+    try:
+        for event in blog_preview.val():
+            if(event):
+                break
+    except:
+        blog_preview = []
     
         
     return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n)

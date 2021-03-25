@@ -24,7 +24,7 @@
                 <h3 class="card-title text-center text-white">News Room</h3>
                 <hr>
                 <marquee direction="up" onmouseover="this.stop();" onmouseout="this.start();">
-                    {% if event_notice.val() %}
+                    {% if event_notice %}
                     {% for event in event_notice %}
                     <a href="{{event.val()['event_url']}}" target="_blank">
                         <p class="text-center text-white" style="text-align: justify; text-justify: inter-word;">A
@@ -59,7 +59,7 @@
             <div class="card" style="background-color: #0F1E40; height: 250px;" >
                 <div class="card-body">
                     <h3 class="card-title text-white">Blogs</h3>
-                    <a href="#">
+                    <a href="{{url_for('blogs')}}">
                         <p class="text-white">Check out the blogs here</p>
                     </a>
                 </div>
@@ -119,9 +119,9 @@
     <br>
 
     <div>
-        <h2 class="text-center" style="font-weight: bold;">Recent Law Journals</h2>
+        <h2 class="text-center" style="font-weight: bold;">Recent Blogs</h2>
         <div class="row">
-            {% if blog_preview.val() %}
+            {% if blog_preview %}
             {% for blog in blog_preview.each() %}
             <div class="col-md-4">
                 <div class="card">
