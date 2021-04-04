@@ -18,6 +18,7 @@ def index():
         n = n + int(request.args.get('more'))
     event_notice = None
     blog_preview = None
+    leader_speaks = None
     try:
         event_notice = db.child("events").get()
         blog_preview = db.child("blogs").order_by_key().limit_to_last(n).get()
@@ -54,9 +55,35 @@ def index():
                 break
     except:
         blog_preview = []
+
+    # Leadership Speaks
+    try:
+        leader_speaks = db.child("leader_speaks").get()
+    except:
+        print("Error fetching details")
+
+    try:
+        for ev in leader_speaks:
+            if ev:
+                break
+    except:
+        leader_speaks = []
+
+    # Poster
+    try:
+        poster = db.child("poster").get()
+    except:
+        print("Error fetching details")
     
-        
-    return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n)
+    try:
+        for v in poster:
+            if v:
+                break
+    except:
+        poster = []
+
+
+    return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n,leader_speaks=leader_speaks,poster=poster)
 
 @app.route("/for_students")
 def for_students():
@@ -154,7 +181,8 @@ def cms():
             'title': title,
             'description': description,
             'last_updated': str(datetime.now()),
-            'blog_url' : blog_url
+            'blog_url' : blog_url,
+            'count':0
         }
         try:
             db.child("blogs").push(upload_blog)
@@ -248,6 +276,51 @@ def cms():
     #     for d in data.each():
     #         member_data[d.key()] = d.val()
     #     return render_template('./cms/manage_user.html')
+
+    if request.form.get('upload_leader'):
+        leader_avatar = request.files['leader_speaks']
+        fname = secure_filename(leader_avatar.filename)
+        leader_avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
+        upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+        upload_path = os.path.join(upload_path,'uploads')
+        upload_path = os.path.join(upload_path,fname)
+            
+        try:
+            storage.child("leader_speaks/"+ fname).put(upload_path)
+        except:
+            print("File Upload error")
+            
+        leader_url = storage.child("leader_speaks/"+ fname).get_url(session['usr'])
+        data_leader = {"image_url":leader_url}
+
+        # d1 = request.form.get("hello")
+        # print(d1)
+        db.child("leader_speaks").push(data_leader)
+        
+
+
+
+    # poster
+    if(request.form.get('upload_poster')):
+        poster_avatar = request.files['poster']
+        fname = secure_filename(poster_avatar.filename)
+        poster_avatar.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
+        upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+        upload_path = os.path.join(upload_path,'uploads')
+        upload_path = os.path.join(upload_path,fname)
+            
+        try:
+            storage.child("posters/"+ fname).put(upload_path)
+        except:
+            print("File Upload error")
+
+        poster_url = storage.child("posters/"+ fname).get_url(session['usr'])
+        data_poster = {"image_url":poster_url}
+
+        # d1 = request.form.get("hello")
+        # print(d1)
+        db.child("poster").push(data_poster)
+
     editors_to_send = None
     try:
         editors_to_send = db.child("members").child("Editorial").get()
@@ -512,6 +585,7 @@ def blogs():
 def blog_details():
     key = request.args.get('key')
     data = None
+    count = 0
     try:
         data = db.child("blogs").child(key).get()
     except:
@@ -524,4 +598,8 @@ def blog_details():
     except:
         data = []
     # d1 = dict(data)
+
+    # View count
+    count = data.val()['count']
+    db.child("blogs").child(key).update({"count":count + 1})
     return render_template('blog_detail.html',data = data)

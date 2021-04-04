@@ -45,6 +45,14 @@
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-comments fa-lg"></span>
                                                 View Feedbacks</a></li>
+                                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='leader_speaks')}}"
+                                        style="text-decoration: none; color: white;"><span
+                                                class="fa fa-comments fa-lg"></span>
+                                        Leadership Speaks</a></li>
+                                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='upload_poster')}}"
+                                        style="text-decoration: none; color: white;"><span
+                                                class="fa fa-comments fa-lg"></span>
+                                        Upload Poster</a></li>
                                 <li style="margin-bottom: 15px;"><a href="{{url_for('logout')}}"
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-log-out fa-lg"></span>
@@ -70,6 +78,10 @@
                         {% include 'cms/edit_delete_member.html'%}
                         {% elif send_action == 'delete_editor'%}
                         {% include 'cms/delete_editor.html'%}
+                        {% elif send_action == 'leader_speaks'%}
+                        {% include 'cms/leader_speaks.html'%}
+                        {% elif send_action == 'upload_poster'%}
+                        {% include 'cms/poster.html'%}
                         {% endif %}
                 </div>
         </div>

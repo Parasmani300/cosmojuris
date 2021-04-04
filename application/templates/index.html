@@ -19,6 +19,43 @@
     <!-- What's New -->
     <div class="container">
         <marquee>Site under Construction</marquee>
+        <!-- Blogs Here -->
+        <div>
+            <h2 class="text-center" style="font-weight: bold;">Our Recent Blogs </h2>
+            <div class="row">
+                {% if blog_preview %}
+                {% for blog in blog_preview.each() %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{{url_for('static',filename='images/caro1.jpg')}}" alt="Description">
+                        <div class="card-body">
+                            <h3 class="card-title">{{blog.val()['title']}}</h3>
+                            <p class="card-text">{{blog.val()['description']}}</p>
+                            <hr>
+                            <small>Author: {{blog.val()['blog_author']}}</small>
+                            <p><small>Last Updated: {{blog.val()['last_updated']}}</small></p>
+                            <a href="{{url_for('blog_details',key=blog.key())}}"
+                                style="text-decoration: none; color: white;">
+                                <button class="btn btn-primary">Details </button></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <!-- <a href="{{url_for('index',more=n+5)}}"><button class="btn btn-primary mb-3">View More</button></a> -->
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+
+       
+
+
         <div class="card" style="background-color: #0F1E40;">
             <div class="card-body">
                 <h3 class="card-title text-center text-white">News Room</h3>
@@ -111,6 +148,57 @@
             alt="publication process">
     </div>
 
+     <!-- Leader Speaks -->
+     {% if leader_speaks %}
+     <div class="container mb-3">
+         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+             <div class="carousel-inner">
+                     {% for leader in leader_speaks.each() %}
+                         <div class="carousel-item {% if loop.first %} active {% endif %}">
+                             <img class="d-block w-100" src="{{leader.val()['image_url']}}" style="height: 480px;" alt="First slide">
+                         </div>
+                     {% endfor %}
+             </div>
+             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                 <span class="sr-only">Previous</span>
+               </a>
+               <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                 <span class="sr-only">Next</span>
+               </a>
+         </div>
+     </div>
+ {% endif %}
+
+ <!-- Event Poster -->
+ {% if poster%}
+ <div class="container mb-3">
+     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+         <div class="carousel-inner">
+                 {% for p in poster.each() %}
+                     <div class="carousel-item {% if loop.first %} active {% endif %}">
+                         <img class="d-block w-100" src="{{p.val()['image_url']}}" style="height: 480px;" alt="First slide">
+                     </div>
+                 {% endfor %}
+         </div>
+         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+             <span class="sr-only">Previous</span>
+           </a>
+           <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+             <span class="sr-only">Next</span>
+           </a>
+     </div>
+ </div>
+ {% endif %}
+
+
+
+
     <!-- Search Bar -->
 
 
@@ -118,38 +206,7 @@
 
     <br>
 
-    <div>
-        <h2 class="text-center" style="font-weight: bold;">Our Recent Blogs </h2>
-        <div class="row">
-            {% if blog_preview %}
-            {% for blog in blog_preview.each() %}
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="{{url_for('static',filename='images/caro1.jpg')}}" alt="Description">
-                    <div class="card-body">
-                        <h3 class="card-title">{{blog.val()['title']}}</h3>
-                        <p class="card-text">{{blog.val()['description']}}</p>
-                        <hr>
-                        <small>Author: {{blog.val()['blog_author']}}</small>
-                        <p><small>Last Updated: {{blog.val()['last_updated']}}</small></p>
-                        <a href="{{url_for('view_details',key=blog.key())}}"
-                            style="text-decoration: none; color: white;">
-                            <button class="btn btn-primary">Details </button></a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            {% endif %}
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <a href="{{url_for('index',more=n+5)}}"><button class="btn btn-primary">View More</button></a>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    </div>
+    
 
     <br>
     <!-- Feedback Form -->

@@ -10,7 +10,7 @@
                         <div class="card-body">
                         <h5 class="card-title">{{data.val()['title']}}</h5>
                         <small>{{data.val()['blog_author']}}</small>
-                        
+                        <small>View: {{data.val()['count']}}</small>
                         <div class="card-text" id="my_blog">
                             <!-- Content is here -->
                             {{data.val()['blog_data'] | safe}}

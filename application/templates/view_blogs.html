@@ -13,6 +13,7 @@
                     <hr>
                     <small>Author: {{blog.val()['blog_author']}}</small>
                     <p>Last Updated: {{blog.val()['last_updated']}}</p>
+                    <p>Views: {{blog.val()['count']}}</p>
                 </div>
                 <a href="{{url_for('view_details',key=blog.key())}}" style="text-decoration: none; color: white;">
                     <button class="btn btn-primary">Details </button></a>
