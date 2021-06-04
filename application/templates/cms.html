@@ -53,6 +53,10 @@
                                         style="text-decoration: none; color: white;"><span
                                                 class="fa fa-comments fa-lg"></span>
                                         Upload Poster</a></li>
+                                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='interview')}}"
+                                        style="text-decoration: none; color: white;"><span
+                                                class="fa fa-comments fa-lg"></span>
+                                        Interviews</a></li>
                                 <li style="margin-bottom: 15px;"><a href="{{url_for('logout')}}"
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-log-out fa-lg"></span>
@@ -82,6 +86,8 @@
                         {% include 'cms/leader_speaks.html'%}
                         {% elif send_action == 'upload_poster'%}
                         {% include 'cms/poster.html'%}
+                        {% elif send_action == 'interview'%}
+                        {% include 'cms/interviews.html'%}
                         {% endif %}
                 </div>
         </div>

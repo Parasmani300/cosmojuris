@@ -19,6 +19,7 @@ def index():
     event_notice = None
     blog_preview = None
     leader_speaks = None
+    interview = None
     try:
         event_notice = db.child("events").get()
         blog_preview = db.child("blogs").order_by_key().limit_to_last(n).get()
@@ -82,8 +83,19 @@ def index():
     except:
         poster = []
 
-
-    return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n,leader_speaks=leader_speaks,poster=poster)
+    try:
+        interview = db.child("interview").get()
+    except:
+        print("Error fetching interviews")
+    
+    try:
+        for v in interview:
+            if v:
+                break
+    except:
+        interview = []
+    
+    return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n,leader_speaks=leader_speaks,poster=poster,interview=interview)
 
 @app.route("/for_students")
 def for_students():
@@ -320,6 +332,36 @@ def cms():
         # d1 = request.form.get("hello")
         # print(d1)
         db.child("poster").push(data_poster)
+
+    if(request.form.get('submit_interview')):
+        interview_name = request.form.get('interview_name')
+        subject = request.form.get('subject')
+        summary = request.form.get('summary')
+        detail = request.form.get('detail')
+        image = request.files['image']
+        fname = secure_filename(image.filename)
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
+        upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+        upload_path = os.path.join(upload_path,'uploads')
+        upload_path = os.path.join(upload_path,fname)
+
+        try:
+            storage.child("interview/"+ fname).put(upload_path)
+        except:
+            print("File Upload error")
+        
+        image_url = storage.child("interview/"+ fname).get_url(session['usr'])
+
+        data = {
+            "interview_name":interview_name,
+            "subject":subject,
+            "summary":summary,
+            "detail":detail,
+            "image_url":image_url
+        }
+
+        db.child("interview").push(data)
+        
 
     editors_to_send = None
     try:
@@ -603,3 +645,21 @@ def blog_details():
     count = data.val()['count']
     db.child("blogs").child(key).update({"count":count + 1})
     return render_template('blog_detail.html',data = data)
+
+@app.route('/interview_details')
+def interview_details():
+    key = request.args.get('key')
+    print(key)
+    data = None
+    try:
+        data = db.child("interview").child(key).get()
+    except:
+        print("COuld not fetch data")
+    
+    try:
+        for d in data.each():
+            if d:
+                break
+    except:
+        data = []
+    return render_template('interview_details.html',data=data)

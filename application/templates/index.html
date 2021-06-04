@@ -53,7 +53,30 @@
             </div>
         </div>
 
-       
+       <!-- Interviews -->
+       <div class="container">
+        {%if interview %}
+        {%for int1 in interview.each() %}
+        {% if loop.index < 3 %}  
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <h3>{{int1.val()['interview_name']}}</h3>
+                        <h4>{{int1.val()['subject']}}</h4>
+                        <blockquote>{{int1.val()['summary']}}</blockquote>
+                        <a href="{{url_for('interview_details',key=int1.key())}}">Read More...</a>
+                    </div>
+                    <div class="col-3">
+                        <img src="{{int1.val()['image_url']}}" class="img-fluid" style="width: 100px;height: 100px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
 
 
         <div class="card" style="background-color: #0F1E40;">
