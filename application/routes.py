@@ -337,7 +337,7 @@ def cms():
         interview_name = request.form.get('interview_name')
         subject = request.form.get('subject')
         summary = request.form.get('summary')
-        detail = request.form.get('detail')
+        detail = request.form.get('editordata')
         image = request.files['image']
         fname = secure_filename(image.filename)
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
