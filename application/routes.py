@@ -22,7 +22,7 @@ def index():
     interview = None
     try:
         event_notice = db.child("events").get()
-        blog_preview = db.child("blogs").order_by_key().limit_to_last(n).get()
+        blog_preview = db.child("blogs").order_by_key().limit_to_last(10).get()
     except:
         print("Error fetching events")
 

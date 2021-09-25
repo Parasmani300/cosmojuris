@@ -25,7 +25,7 @@
             <div class="row">
                 {% if blog_preview %}
                 {% for blog in blog_preview.each() %}
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="card">
                         <img class="card-img-top" src="{{url_for('static',filename='images/caro1.jpg')}}" alt="Description">
                         <div class="card-body">
@@ -39,7 +39,25 @@
                                 <button class="btn btn-primary">Details </button></a>
                         </div>
                     </div>
+                </div> -->
+                <!--Start modification for adding the new blog way-->
+                <div class="col-md-6">
+                    <div class="row mb-2 shadow bg-white" style="min-height: 160px;">
+                        <div class="col-4">
+                            <img class="img-fluid" src="{{blog.val()['blog_url']}}" alt="Description">
+                            <!-- <small>Author: {{blog.val()['blog_author']}}</small> -->
+                        </div>
+                        <div class="col-8 mt-1">
+                            <h5 class="card-title">{{blog.val()['title']}}</h5>
+                            <a href="{{url_for('blog_details',key=blog.key())}}"
+                                    style="text-decoration: none; float: right;">
+                                Read more...</a>
+                        </div>
+                        <!-- <hr /> -->
+                    </div>
                 </div>
+                
+                <!--End modification for adding the new blog way-->
                 {% endfor %}
                 {% endif %}
             </div>
@@ -54,11 +72,11 @@
         </div>
 
        <!-- Interviews -->
-       <div class="container">
+       <div class="">
         {%if interview %}
         {%for int1 in interview.each() %}
         {% if loop.index < 3 %}  
-        <div class="card mb-3">
+        <div class="mb-3">
             <div class="card-body">
                 <div class="row">
                     <div class="col-9">
@@ -81,7 +99,7 @@
 
         <div class="card" style="background-color: #0F1E40;">
             <div class="card-body">
-                <h3 class="card-title text-center text-white">News Room</h3>
+                <h3 class="card-title text-center text-white">Our Works</h3>
                 <hr>
                 <marquee direction="up" onmouseover="this.stop();" onmouseout="this.start();">
                     {% if event_notice %}
@@ -197,7 +215,7 @@
 
  <!-- Event Poster -->
  {% if poster%}
- <div class="container mb-3">
+ <div class="mb-3">
      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
          <div class="carousel-inner">
@@ -233,7 +251,7 @@
 
     <br>
     <!-- Feedback Form -->
-    <div class="container">
+    <div class="">
         <div class="card shadow p-3 mb-5 bg-white rounded">
             <div class="card-body" style="background-color: #918888;">
                 <h3 class="card-title">Help Desk</h3>
