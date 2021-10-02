@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block metadata %}
-<meta property="og:title" content="Hello there" />
-<meta property="og:description" content="Hello there" />
+<meta property="og:title" content="{{data.val()['title']}}" />
+<meta property="og:description" content="by {{data.val()['blog_author']}}" />
 {% endblock %}
 {% block content %}
     <div class="container" style="margin-top: 100px;">
