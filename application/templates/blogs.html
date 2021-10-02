@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block metadata %}
+<meta name="cosmojuris" content="{{data.val()['blog_url']}}" />
+{% endblock %}
 {% block content %}
     <div class="container-fluid" style="margin-top: 80;">
         <h3>Blogs</h3>
