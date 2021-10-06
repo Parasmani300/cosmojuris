@@ -687,6 +687,30 @@ def blog_details():
     db.child("blogs").child(key).update({"count":count + 1})
     return render_template('blog_detail.html',data = data)
 
+# Oppurtunities details
+@app.route('/oppt_details')
+def oppt_details():
+    key = request.args.get('key')
+    data = None
+    count = 0
+    try:
+        data = db.child("oppt").child(key).get()
+    except:
+        print("Could not fetch")
+    
+    try:
+        for d in data.each():
+            if d:
+                break
+    except:
+        data = []
+    # d1 = dict(data)
+
+    # View count
+    count = data.val()['count']
+    db.child("blogs").child(key).update({"count":count + 1})
+    return render_template('oppt_detail.html',data = data)
+
 @app.route('/interview_details')
 def interview_details():
     key = request.args.get('key')
