@@ -1,0 +1,35 @@
+<div class="container-fluid" style="margin-top: 60px;">
+    <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+            <h3 class="card-title">Oppurtunities here</h3>
+            <hr>
+            <form method="post" enctype="multipart/form-data" >
+                <div class="form-group">
+                    <label for="oppt_name">Author Name</label>
+                    <input type="text" name="oppt_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="oppt_title">Title</label>
+                    <input type="text" name="oppt_title" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="oppt_image">Associated image</label>
+                    <input type="file" name="oppt_image" class="form-control" />
+                  </div>
+
+                <div class="form-group">
+                    <label for="oppt_desc">Description</label>
+                    <input type="text" name="oppt_desc" class="form-control">
+                </div>
+
+                <textarea id="summernote" name="oppt_editordata"></textarea>
+                <br>
+                <div class="form-group">
+                    <input type="submit" name="submit_opp" value="Publish Now" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

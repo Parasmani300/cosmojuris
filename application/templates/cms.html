@@ -29,6 +29,10 @@
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-blog fa-lg"></span>
                                                 Upload Blog</a></li>
+                                <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='oppt')}}"
+                                        style="text-decoration: none; color: white;"><span
+                                                class="fa fa-blog fa-lg"></span>
+                                        Oppurtunities</a></li>
                                 <li style="margin-bottom: 15px;"><a href="{{url_for('cms',action='upload_journal')}}"
                                                 style="text-decoration: none; color: white;"><span
                                                         class="fa fa-newspaper fa-lg"></span>
@@ -88,6 +92,8 @@
                         {% include 'cms/poster.html'%}
                         {% elif send_action == 'interview'%}
                         {% include 'cms/interviews.html'%}
+                        {% elif send_action == 'oppt'%}
+                        {% include 'cms/oppt.html'%}
                         {% endif %}
                 </div>
         </div>

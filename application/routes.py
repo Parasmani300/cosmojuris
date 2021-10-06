@@ -95,7 +95,13 @@ def index():
     except:
         interview = []
     
-    return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n,leader_speaks=leader_speaks,poster=poster,interview=interview)
+    try:
+        oppt = db.child("oppt").get()
+        # print(oppt)
+    except:
+        oppt = []
+    
+    return render_template("index.html",data=data,event_notice=event_notice,blog_preview=blog_preview,n=n,leader_speaks=leader_speaks,poster=poster,interview=interview,oppt=oppt)
 
 @app.route("/for_students")
 def for_students():
@@ -200,6 +206,41 @@ def cms():
             db.child("blogs").push(upload_blog)
         except:
             print('Cannot Upload blog')
+    
+    # Upload oppurtunities
+    if(request.form.get('submit_opp')):
+        blog_data = request.form.get('oppt_editordata')
+        blog_author = request.form.get('oppt_name')
+        title = request.form.get('oppt_title')
+        description = request.form.get('oppt_desc')
+
+        blogs = request.files['oppt_image']
+        fname = secure_filename(blogs.filename)
+        blogs.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
+        upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+        upload_path = os.path.join(upload_path,'uploads')
+        upload_path = os.path.join(upload_path,fname)
+        try:
+            storage.child("oppt/"+ fname).put(upload_path)
+        except:
+            print("File Upload error")
+
+        oppt_url = storage.child("oppt/"+ fname).get_url(session['usr'])
+        
+        upload_blog = {
+            'oppt_data':blog_data,
+            'oppt_author':blog_author,
+            'title': title,
+            'description': description,
+            'last_updated': str(datetime.now()),
+            'blog_url' : oppt_url,
+            'count':0
+        }
+        try:
+            db.child("oppt").push(upload_blog)
+        except:
+            print('Cannot Upload blog')
+    # End Upload oppurtunities
     # Deleting the event as per user requirements
     if(request.args.get('remove')):
         key = request.args.get('key')
