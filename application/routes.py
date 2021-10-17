@@ -95,9 +95,18 @@ def index():
     except:
         interview = []
     
+    # oppt
+    oppt = []
     try:
         oppt = db.child("oppt").get()
         # print(oppt)
+    except:
+        print("Error detching oppt")
+
+    try:
+        for v in oppt:
+            if v:
+                break
     except:
         oppt = []
     
