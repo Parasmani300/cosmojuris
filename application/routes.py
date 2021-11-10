@@ -717,7 +717,8 @@ def oppt_details():
 
     # View count
     count = data.val()['count']
-    db.child("blogs").child(key).update({"count":count + 1})
+    # print(count)
+    db.child("oppt").child(key).update({"count":count + 1})
     return render_template('oppt_detail.html',data = data)
 
 @app.route('/interview_details')
